@@ -24,25 +24,31 @@ const HeroCanvas = () => {
   }, []);
 
   return (
-    <div className="relative w-64 h-64 md:w-80 md:h-80">
+    <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+      {/* Glowing background rings */}
       <div className="absolute inset-0 rounded-full bg-cyber-teal/10 animate-pulse-slow"></div>
       <div className="absolute inset-4 rounded-full bg-cyber-teal/20 animate-pulse-slow" style={{ animationDelay: "0.5s" }}></div>
       
       {/* 3D Canvas */}
       <div className="absolute inset-0 z-10">
         <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }}>
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[10, 10, 10]} intensity={1.5} />
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+          <directionalLight position={[-5, -5, 5]} intensity={0.5} color="#64ffda" />
           <HeroModel mousePosition={mousePosition} />
         </Canvas>
       </div>
       
-      {/* Icons that float over the 3D canvas */}
-      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-        <div className="flex items-center justify-center space-x-4">
-          <Shield size={40} className="text-cyber-teal" />
-          <Cpu size={40} className="text-cyber-teal" />
-          <Database size={40} className="text-cyber-teal" />
+      {/* Floating icons around the character */}
+      <div className="absolute w-full h-full z-20 pointer-events-none">
+        <div className="absolute top-4 left-1/2 -translate-x-1/2">
+          <Shield size={28} className="text-cyber-teal animate-float" style={{ animationDelay: "0s" }} />
+        </div>
+        <div className="absolute top-1/2 left-4 -translate-y-1/2">
+          <Cpu size={28} className="text-cyber-teal animate-float" style={{ animationDelay: "0.5s" }} />
+        </div>
+        <div className="absolute bottom-4 right-4">
+          <Database size={28} className="text-cyber-teal animate-float" style={{ animationDelay: "1s" }} />
         </div>
       </div>
     </div>

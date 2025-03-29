@@ -8,32 +8,56 @@ interface HeroModelProps {
 }
 
 const HeroModel = ({ mousePosition }: HeroModelProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
   
-  // Update rotation based on mouse position
   useFrame(() => {
-    if (meshRef.current) {
-      // Automatic rotation
-      meshRef.current.rotation.x += 0.003;
-      meshRef.current.rotation.y += 0.003;
-      
-      // Interactive rotation based on mouse position
-      meshRef.current.rotation.x += (mousePosition.y * 0.01 - meshRef.current.rotation.x) * 0.1;
-      meshRef.current.rotation.y += (mousePosition.x * 0.01 - meshRef.current.rotation.y) * 0.1;
+    if (groupRef.current) {
+      // Smooth follow mouse movement
+      groupRef.current.rotation.y += (mousePosition.x * 0.5 - groupRef.current.rotation.y) * 0.1;
+      groupRef.current.rotation.x += (mousePosition.y * 0.5 - groupRef.current.rotation.x) * 0.1;
     }
   });
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[1, 64, 64]} />
-      <meshStandardMaterial 
-        color="#64ffda"
-        roughness={0.2}
-        metalness={0.8}
-        transparent
-        opacity={0.8}
-      />
-    </mesh>
+    <group ref={groupRef}>
+      {/* Base sphere */}
+      <mesh position={[0, 0, 0]}>
+        <sphereGeometry args={[0.8, 32, 32]} />
+        <meshStandardMaterial 
+          color="#64ffda"
+          emissive="#64ffda"
+          emissiveIntensity={0.2}
+          metalness={0.3}
+          roughness={0.2}
+        />
+      </mesh>
+      
+      {/* Eyes */}
+      <mesh position={[0.3, 0.2, 0.7]}>
+        <sphereGeometry args={[0.12, 16, 16]} />
+        <meshBasicMaterial color="#112240" />
+      </mesh>
+      <mesh position={[-0.3, 0.2, 0.7]}>
+        <sphereGeometry args={[0.12, 16, 16]} />
+        <meshBasicMaterial color="#112240" />
+      </mesh>
+      
+      {/* Smile */}
+      <mesh position={[0, -0.1, 0.7]} rotation={[0, 0, Math.PI * 0.1]}>
+        <torusGeometry args={[0.3, 0.05, 16, 16, Math.PI]} />
+        <meshBasicMaterial color="#112240" />
+      </mesh>
+      
+      {/* Security rings */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[1.2, 0.03, 16, 64]} />
+        <meshStandardMaterial color="#64ffda" transparent opacity={0.6} />
+      </mesh>
+      <mesh rotation={[Math.PI / 3, Math.PI / 4, 0]}>
+        <torusGeometry args={[1.2, 0.03, 16, 64]} />
+        <meshStandardMaterial color="#64ffda" transparent opacity={0.6} />
+      </mesh>
+    </group>
   );
 };
 
