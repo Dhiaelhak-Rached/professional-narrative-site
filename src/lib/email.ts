@@ -20,12 +20,13 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
   // 1. Send a request to your backend API
   // 2. Use a service like EmailJS or SendGrid
   
-  console.log("Contact form submission:", formData);
+  console.log("Contact form submission to racheddhiaelhakk@gmail.com:", formData);
   
   // Simulate API call with a delay
   return new Promise((resolve) => {
     setTimeout(() => {
       // Simulate successful submission
+      // In a real implementation, this would send an email to racheddhiaelhakk@gmail.com
       resolve(true);
     }, 1500);
   });
