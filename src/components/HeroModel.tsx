@@ -1,7 +1,7 @@
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Sphere, MeshDistortMaterial } from "@react-three/drei";
+import { Sphere } from "@react-three/drei";
 import * as THREE from "three";
 
 interface HeroModelProps {
@@ -10,7 +10,6 @@ interface HeroModelProps {
 
 const HeroModel = ({ mousePosition }: HeroModelProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const [hovered, setHovered] = useState(false);
   
   // Update rotation based on mouse position
   useFrame((state) => {
@@ -29,17 +28,13 @@ const HeroModel = ({ mousePosition }: HeroModelProps) => {
     <Sphere
       args={[1, 64, 64]}
       ref={meshRef}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
     >
-      <MeshDistortMaterial
+      <meshStandardMaterial 
         color="#64ffda"
-        distort={0.4}
-        speed={4}
         roughness={0.2}
         metalness={0.8}
         opacity={0.8}
-        transparent
+        transparent={true}
       />
     </Sphere>
   );
