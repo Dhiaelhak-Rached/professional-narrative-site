@@ -1,6 +1,7 @@
 
-import { ArrowDownCircle, Shield, Cpu, Database } from "lucide-react";
+import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import HeroCanvas from "./HeroCanvas";
 
 const Hero = () => {
   return (
@@ -62,17 +63,7 @@ const Hero = () => {
           </div>
           
           <div className="lg:w-2/5 flex justify-center animate-float">
-            <div className="relative w-64 h-64 md:w-80 md:h-80">
-              <div className="absolute inset-0 rounded-full bg-cyber-teal/10 animate-pulse-slow"></div>
-              <div className="absolute inset-4 rounded-full bg-cyber-teal/20 animate-pulse-slow" style={{ animationDelay: "0.5s" }}></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex items-center justify-center space-x-4">
-                  <Shield size={40} className="text-cyber-teal" />
-                  <Cpu size={40} className="text-cyber-teal" />
-                  <Database size={40} className="text-cyber-teal" />
-                </div>
-              </div>
-            </div>
+            <HeroCanvas />
           </div>
         </div>
         
