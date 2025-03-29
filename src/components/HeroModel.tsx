@@ -1,5 +1,5 @@
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Sphere, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -31,17 +31,15 @@ const HeroModel = ({ mousePosition }: HeroModelProps) => {
       ref={meshRef}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      scale={hovered ? 1.1 : 1}
     >
       <MeshDistortMaterial
         color="#64ffda"
-        attach="material"
         distort={0.4}
         speed={4}
         roughness={0.2}
         metalness={0.8}
         opacity={0.8}
-        transparent={true}
+        transparent
       />
     </Sphere>
   );
